@@ -277,7 +277,6 @@ nav a span {
   
   .movie-title {
     font-size: 1.2rem;
-    color:#fd6565;
   }
   
   .info {
@@ -322,4 +321,3 @@ nav a span {
     z-index: 999;
     display: none;
   }
-
