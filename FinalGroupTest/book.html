@@ -8,23 +8,23 @@
     <title>Movie Seat Booking</title>
   </head>
   <body>
-    <div class="movie-container">
+    <div class="datetime-container">
       <label>Pick a day:</label>
-      <select id="movie">
-        <optgroup label="27/04">
-          <option value="10">10:00 AM</option>
-          <option value="10">1:00 PM</option>
-          <option value="10">4:00 PM</option>
+      <select id="date">
+        <optgroup value="27/04" label="27/04">
+          <option value="10:00">10:00</option>
+          <option value="13:00">13:00</option>
+          <option value="16:00">16:00</option>
         </optgroup>
-        <optgroup label="01/05">
-          <option value="10">11:00 AM</option>
-          <option value="10">2:00 PM</option>
-          <option value="10">5:00 PM</option>
+        <optgroup value="01/05" label="01/05">
+          <option value="11:00">11:00</option>
+          <option value="14:00">14:00</option>
+          <option value="17:00">5:00</option>
         </optgroup>
-        <optgroup label="03/05">
-          <option value="10">10:00 AM</option>
-          <option value="10">3:00 PM</option>
-          <option value="10">8:00 PM</option>
+        <optgroup value="03/05" label="03/05">
+          <option value="10:00">10:00</option>
+          <option value="15:00">15:00</option>
+          <option value="20:00">20:00</option>
         </optgroup>
       </select>
     </div>
@@ -119,6 +119,7 @@
     </p>
 
 <button id="openTicketForm">Create Ticket</button>
+<a href="index.html"><button>Back to Movie Selection</button></a>
 
 <!-- Ticket form overlay -->
 <div class="ticket-overlay" id="ticketOverlay">
@@ -126,21 +127,10 @@
       <div class="holes-top"></div>
       <div class="title">
           <p class="cinema">Movie Ticket Booking</p>
-          <p class="movie-title">Movie: John Wock</p>
+          <p class="movie-title">Movie: <span id="selectedMovieName"></span></p>
       </div>
       <div class="info">
-          <table>
-              <tr>
-                  <th>SCREEN</th>
-                  <th>ROW</th>
-                  <th>SEAT</th>
-              </tr>
-              <tr>
-                  <td class="bigger">18</td>
-                  <td class="bigger">H</td>
-                  <td class="bigger">24</td>
-              </tr>
-          </table>
+          
           <table>
               <tr>
                   <th>PRICE</th>
@@ -148,11 +138,23 @@
                   <th>TIME</th>
               </tr>
               <tr>
-                  <td>$40</td>
-                  <td>01/05</td>
-                  <td>02:00 PM</td>
+                <td id="ticketPrice"></td>
+                <td id="ticketDate"></td>
+                <td id="ticketTime"></td>
               </tr>
           </table>
+          <table>
+            <tr>
+                <th>SCREEN</th>
+                <th>ROW</th>
+                <th>SEAT</th>
+            </tr>
+            <tr>
+                <td class="bigger">18</td>
+                <td class="bigger">H</td>
+                <td class="bigger">24</td>
+            </tr>
+        </table>
       </div>
 
       <div class="holes-lower"></div>
