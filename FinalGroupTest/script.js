@@ -1,72 +1,76 @@
 const container = document.querySelector('.container');
-const seats = document.querySelectorAll('.row .seat:not(.occupied');
+const seats = document.querySelectorAll('.row .seat:not(.occupied)');
 const count = document.getElementById('count');
 const total = document.getElementById('total');
-const movieSelect = document.getElementById('movie');
+const urlParams = new URLSearchParams(window.location.search);
+const movieName = urlParams.get('movie');
+const moviePrice = parseFloat(urlParams.get('price'));
 
-populateUI();
-let ticketPrice = +movieSelect.value;
+let ticketPrice = moviePrice || 10; //default price
 
-// Save selected movie index and price
-function setMovieData(movieIndex, moviePrice) {
-  localStorage.setItem('selectedMovieIndex', movieIndex);
-  localStorage.setItem('selectedMoviePrice', moviePrice);
+// Save selected movie data
+function setMovieData(movieName, moviePrice) {
+    localStorage.setItem('selectedMovieName', movieName);
+    localStorage.setItem('selectedMoviePrice', moviePrice);
 }
 
-// update total and count
+// Update total and count
 function updateSelectedCount() {
-  const selectedSeats = document.querySelectorAll('.row .seat.selected');
+    const selectedSeats = document.querySelectorAll('.row .seat.selected');
+    const selectedSeatsCount = selectedSeats.length;
 
-  const seatsIndex = [...selectedSeats].map((seat) => [...seats].indexOf(seat));
-
-  localStorage.setItem('selectedSeats', JSON.stringify(seatsIndex));
-
-  const selectedSeatsCount = selectedSeats.length;
-
-  count.innerText = selectedSeatsCount;
-  total.innerText = selectedSeatsCount * ticketPrice;
+    count.innerText = selectedSeatsCount;
+    total.innerText = selectedSeatsCount * ticketPrice;
 }
 
-// get data from localstorage and populate ui
-function populateUI() {
-  const selectedSeats = JSON.parse(localStorage.getItem('selectedSeats'));
-  if (selectedSeats !== null && selectedSeats.length > 0) {
-    seats.forEach((seat, index) => {
-      if (selectedSeats.indexOf(index) > -1) {
-        seat.classList.add('selected');
-      }
-    });
-  }
-
-  const selectedMovieIndex = localStorage.getItem('selectedMovieIndex');
-
-  if (selectedMovieIndex !== null) {
-    movieSelect.selectedIndex = selectedMovieIndex;
-  }
-}
-
-// Movie select event
-movieSelect.addEventListener('change', (e) => {
-  ticketPrice = +e.target.value;
-  setMovieData(e.target.selectedIndex, e.target.value);
-  updateSelectedCount();
-});
+updateSelectedCount();
 
 // Seat click event
 container.addEventListener('click', (e) => {
-  if (e.target.classList.contains('seat') && !e.target.classList.contains('occupied')) {
-    e.target.classList.toggle('selected');
-
-    updateSelectedCount();
-  }
+    if (e.target.classList.contains('seat') && !e.target.classList.contains('occupied')) {
+        e.target.classList.toggle('selected');
+        updateSelectedCount();
+    }
 });
 
-// intial count and total
-updateSelectedCount();
+function populateUI() {
+    const selectedMovieName = localStorage.getItem('selectedMovieName');
+    const selectedMoviePrice = parseFloat(localStorage.getItem('selectedMoviePrice'));
+
+    if (selectedMovieName && selectedMoviePrice) {
+        document.querySelector('select#movie option[value="' + selectedMoviePrice + '"]').selected = true;
+        ticketPrice = selectedMoviePrice;
+    }
+}
+
+populateUI();
 
 const openTicketFormButton = document.getElementById('openTicketForm');
   const ticketOverlay = document.getElementById('ticketOverlay');
 
 openTicketFormButton.addEventListener('click', () => {
-  ticketOverlay.style.display = 'block'; // Show the ticket form overlay
+  ticketOverlay.style.display = 'block';
+});
+
+function updateTicketInfo() {
+  const selectedDate = document.getElementById('date').value;
+  const selectedTime = document.getElementById('date').options[document.getElementById('date').selectedIndex].text;
+  const selectedSeatsCount = parseInt(count.innerText);
+  const totalPrice = selectedSeatsCount * ticketPrice;
+
+  const movieTitle = document.querySelector('.movie-title');
+  const priceCell = document.querySelector('.info table tr:nth-child(2) td:first-child');
+  const dateCell = document.querySelector('.info table tr:nth-child(2) td:nth-child(2)');
+  const timeCell = document.querySelector('.info table tr:nth-child(2) td:nth-child(3)');
+
+  movieTitle.innerText = "Movie: " + movieName;
+  priceCell.innerText = "$" + totalPrice;
+  dateCell.innerText = selectedDate;
+  timeCell.innerText = selectedTime;
+}
+
+// Event listener for "Create Ticket" button
+openTicketFormButton.addEventListener('click', () => {
+  updateTicketInfo(); 
+  ticketOverlay.style.display = 'block';
 });
