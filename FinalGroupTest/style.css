@@ -271,52 +271,20 @@ nav a span {
   }
   
   .cinema {
-    color: rgb(63, 62, 62);
+    color: skyblue;
     font-size: 1.5rem;
   }
   
   .movie-title {
     font-size: 1.2rem;
+    color:#fd6565;
   }
   
   .info {
     padding: 15px 25px;
+    color: black;
   }
   
-  .ticket-table {
-    width: 100%;
-    font-size: 18px;
-    margin-bottom: 15px;
-  }
-  
-  .ticket-table tr {
-    margin-bottom: 10px;
-  }
-  
-  .ticket-table th {
-    text-align: left;
-  }
-  
-  .ticket-table th:nth-of-type(1) {
-    width: 38%;
-  }
-  
-  .ticket-table th:nth-of-type(2) {
-    width: 40%;
-  }
-  
-  .ticket-table th:nth-of-type(3) {
-    width: 15%;
-  }
-  
-  .ticket-table td {
-    width: 33%;
-    font-size: 26px;
-  }
-  
-  .info-table th {
-    color: rgb(63, 62, 62)
-  }
   
   .bigger {
     font-size: 40px;
@@ -354,3 +322,4 @@ nav a span {
     z-index: 999;
     display: none;
   }
+
